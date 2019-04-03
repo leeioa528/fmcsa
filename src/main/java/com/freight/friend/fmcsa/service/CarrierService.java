@@ -4,9 +4,7 @@ package com.freight.friend.fmcsa.service;
 import com.freight.friend.fmcsa.domain.Census;
 import com.freight.friend.fmcsa.exception.NotFoundException;
 import com.freight.friend.fmcsa.model.CensusDto;
-import com.freight.friend.fmcsa.repository.CarrierRepository;
 import com.freight.friend.fmcsa.repository.CensusRepository;
-import com.freight.friend.fmcsa.repository.InspectionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CarrierService {
 
-    private final CarrierRepository carrierRepository;
-
-    private final InspectionRepository inspectionRepository;
 
     private final CensusRepository censusRepository;
 
     @Autowired
-    public CarrierService(CarrierRepository carrierRepository, InspectionRepository inspectionRepository, CensusRepository censusRepository) {
-        this.carrierRepository = carrierRepository;
-        this.inspectionRepository = inspectionRepository;
+    public CarrierService(CensusRepository censusRepository) {
         this.censusRepository = censusRepository;
     }
 
@@ -41,7 +34,6 @@ public class CarrierService {
                         "please try again.", usDotNumber));
             }
         }
-        System.out.println(result.toString());
 
         return CensusDto.builder()
                 .legalName(result.getLegalName()).doingBusinessName(result.getDoingBusinessName())
